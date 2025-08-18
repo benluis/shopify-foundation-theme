@@ -1,0 +1,41 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page-about",
+      "settings": {
+        "team_headline": "Meet the Team",
+        "show_company_info": true,
+        "company_info_title": "About Aeris Studio",
+        "company_info_text": "We're passionate about creating high-quality mechanical keyboards that combine premium materials with thoughtful design. Our mission is to bring you keyboards that feel premium from day one."
+      },
+      "blocks": {
+        "lewis-toh": {
+          "type": "team_member",
+          "settings": {
+            "name": "Lewis Toh",
+            "title": "Co-Founder & Designer",
+            "bio": "Passionate about mechanical keyboards and minimalist design. Lewis brings years of experience in product design and community building.",
+            "social_platform": "youtube",
+            "social_link": "https://www.youtube.com/channel/UC-H7zwEZHbPqUIO4NOv9_Eg"
+          }
+        },
+        "ben-luis": {
+          "type": "team_member",
+          "settings": {
+            "name": "Ben Luis",
+            "title": "Co-Founder & Engineer",
+            "bio": "Focused on the technical aspects of keyboard design and manufacturing processes. Ben ensures every Killer65 meets our quality standards.",
+            "social_platform": "none"
+          }
+        }
+      },
+      "block_order": [
+        "lewis-toh",
+        "ben-luis"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

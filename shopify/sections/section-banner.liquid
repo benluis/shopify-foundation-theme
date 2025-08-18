@@ -1,7 +1,13 @@
 {% assign image = section.settings.image %}
+{% assign image_order_md = '' %}
+{% assign text_order_md = '' %}
+{% if section.settings.text_position == 'left' %}
+  {% assign image_order_md = 'md:order-2' %}
+  {% assign text_order_md = 'md:order-1' %}
+{% endif %}
 
-<div class="container grid md:grid-cols-2 lg:grid-cols-3 mb-12 md:mb-24">
-  <div class="lg:col-span-2">
+<div class="container grid md:grid-cols-2 lg:grid-cols-3 items-center mb-12 md:mb-24">
+  <div class="lg:col-span-2 {{ image_order_md }}">
     {% if image %}
       <img
         sizes="
@@ -30,7 +36,7 @@
     {% endif %}
   </div>
 
-  <div class="flex flex-col justify-center items-start pt-4 md:p-8">
+  <div class="flex flex-col justify-center items-start pt-4 md:p-8 {{ text_order_md }}">
     <div class="text-2xl lg:text-3xl font-bold mb-2">
       {{ section.settings.headline }}
     </div>
@@ -77,6 +83,16 @@
       "id": "button-text",
       "label": "t:common.button.text",
       "default": "Button"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text position on desktop",
+      "default": "right",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ]
     }
   ],
   "presets": [

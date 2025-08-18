@@ -25,15 +25,7 @@
       {% endif %}
     </a>
 
-    {% if shop.customer_accounts_enabled %}
-      <a
-        href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
-        class="{{ link_class }}"
-      >
-        {% render 'icon-account', class: icon_class %}
-        {{ 'action.account' | t }}
-      </a>
-    {% endif %}
+
 
     <button @click="$store.dispatch('mobile-menu/toggle')" class="{{ link_class }}">
       {% render 'icon-menu', class: icon_class %}

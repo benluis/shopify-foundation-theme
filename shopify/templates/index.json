@@ -3,28 +3,41 @@
     "section-hero": {
       "type": "section-hero",
       "settings": {
-        "headline": "Headline",
-        "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quos hic praesentium recusandae dolores odio animi deleniti officia cum itaque.",
-        "button-url": "\/",
-        "button-text": "Button"
+        "headline": "Killer65",
+        "text": "A 65% aluminum keyboard with gasket mount and PVD accents—built to feel premium from day one.",
+        "video_url": "https:\/\/d3qqnkw9d395j4.cloudfront.net\/splash_video.mp4",
+        "button-url": "\/products\/killer65",
+        "button-text": "Shop Killer65"
       }
     },
-    "section-collection": {
-      "type": "section-collection",
-      "settings": {
-        "headline": "Selected products",
-        "collection_featured": "",
-        "collection_products_limit": "4"
-      }
-    },
-    "section-banner": {
+    "section-banner-blog": {
       "type": "section-banner",
       "settings": {
-        "headline": "Headline",
-        "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quos hic praesentium recusandae dolores odio animi deleniti officia cum itaque.",
-        "button-url": "\/",
-        "button-text": "Button"
+        "headline": "Guides & Updates",
+        "text": "Check out our latest build guides, community updates, and behind-the-scenes content from the Aeris Studio team.",
+        "button-url": "https:\/\/aeris.studio\/blogs\/news",
+        "button-text": "Read our blog",
+        "text_position": "left"
       }
+    },
+    "section-banner-customise": {
+      "type": "section-banner",
+      "settings": {
+        "headline": "Customise your Killer65",
+        "text": "Pick top/bottom frames and counterweights to match your keycaps.",
+        "button-url": "\/products\/killer65",
+        "button-text": "Customise"
+      }
+    },
+    "section-feature-cards": {
+      "type": "section-feature-cards",
+      "blocks": {
+        "feature-1": { "type": "feature", "settings": { "title": "CNC'd aluminum body", "text": "Precision‑machined for weight, stability, and longevity." } },
+        "feature-2": { "type": "feature", "settings": { "title": "Gasket mount (Poron)", "text": "Soft, isolated typing feel with a satisfying sound profile." } },
+        "feature-3": { "type": "feature", "settings": { "title": "Engraved PVD counterweight", "text": "A refined accent that elevates the overall aesthetic." } }
+      },
+      "block_order": ["feature-1", "feature-2", "feature-3"],
+      "settings": { "headline": "Featuring" }
     },
     "section-image-row": {
       "type": "section-image-row",
@@ -50,9 +63,7 @@
         "image-2",
         "image-3"
       ],
-      "settings": {
-        "headline": "Our store"
-      }
+      "settings": { "headline": "Killer65 gallery" }
     },
     "section-quotes": {
       "type": "section-quotes",
@@ -60,22 +71,22 @@
         "quote-1": {
           "type": "quote",
           "settings": {
-            "quote-text": "Add customer reviews and testimonials to showcase your store’s happy customers.",
-            "quote-author": "Author's name"
+            "quote-text": "Amazing value. Killer65 feels premium and sounds great.",
+            "quote-author": "Jason"
           }
         },
         "quote-2": {
           "type": "quote",
           "settings": {
-            "quote-text": "Add customer reviews and testimonials to showcase your store’s happy customers.",
-            "quote-author": "Author's name"
+            "quote-text": "Gasket mount at this price is a win.",
+            "quote-author": "Mina"
           }
         },
         "quote-3": {
           "type": "quote",
           "settings": {
-            "quote-text": "Add customer reviews and testimonials to showcase your store’s happy customers.",
-            "quote-author": "Author's name"
+            "quote-text": "Easy to customize to match my keycap sets.",
+            "quote-author": "Leo"
           }
         }
       },
@@ -85,23 +96,24 @@
         "quote-3"
       ],
       "settings": {
-        "headline": "What others say about us"
+        "headline": "Reviews"
       }
     },
     "section-newsletter": {
       "type": "section-newsletter",
       "settings": {
-        "headline": "Our newsletter",
-        "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quos hic praesentium recusandae dolores odio animi deleniti officia cum itaque."
+        "headline": "Get Killer65 updates",
+        "text": "Follow us on socials and join the email list for drop alerts, restocks, and news."
       }
     }
   },
   "order": [
     "section-hero",
-    "section-collection",
-    "section-banner",
+    "section-feature-cards",
     "section-image-row",
     "section-quotes",
+    "section-banner-customise",
+    "section-banner-blog",
     "section-newsletter"
   ]
 }

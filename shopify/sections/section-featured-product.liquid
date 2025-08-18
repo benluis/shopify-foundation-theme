@@ -1,0 +1,79 @@
+{% assign image = section.settings.image %}
+
+<div class="container mb-12 md:mb-24">
+  <div class="grid md:grid-cols-2 gap-6 md:gap-10 items-center">
+    <div>
+      <div class="text-3xl lg:text-5xl font-bold leading-tight mb-3">
+        {{ section.settings.product_title }}
+      </div>
+
+      {% if section.settings.price_text %}
+        <div class="text-lg text-gray-700 mb-6">
+          {{ section.settings.price_text }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.description %}
+        <div class="mb-6">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+
+      <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+        {% if section.settings.cta_url and section.settings.cta_text %}
+          <a href="{{ section.settings.cta_url }}" class="button button-primary">{{ section.settings.cta_text }}</a>
+        {% endif %}
+        {% if section.settings.secondary_cta_url and section.settings.secondary_cta_text %}
+          <a href="{{ section.settings.secondary_cta_url }}" class="button button-secondary">{{ section.settings.secondary_cta_text }}</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div>
+      {% if image %}
+        <img
+          sizes="
+            (min-width: 1280px) 700px,
+            (min-width: 1024px) 600px,
+            (min-width: 768px) 520px,
+            100vw
+          "
+          srcset="
+            {{ image | img_url: '520x' }} 520w,
+            {{ image | img_url: '600x' }} 600w,
+            {{ image | img_url: '700x' }} 700w
+          "
+          src="{{ image | img_url: '700x' }}"
+          alt="{{ image.alt }}"
+          loading="lazy"
+          class="w-full h-full object-cover object-center rounded"
+        >
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'w-full h-96 border' }}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured product (Osume)",
+  "class": "shopify-section-vue",
+  "settings": [
+    { "type": "text", "id": "product_title", "label": "Title", "default": "The Killer65" },
+    { "type": "text", "id": "price_text", "label": "Price text", "default": "Starting at $149" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "A wallet-friendly 65% keyboard with a minimal design language and thoughtful details." },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "url", "id": "cta_url", "label": "Primary CTA URL" },
+    { "type": "text", "id": "cta_text", "label": "Primary CTA Text", "default": "Check our store!" },
+    { "type": "url", "id": "secondary_cta_url", "label": "Secondary CTA URL" },
+    { "type": "text", "id": "secondary_cta_text", "label": "Secondary CTA Text", "default": "Customise your Killer65" }
+  ],
+  "presets": [
+    { "name": "Featured product (Osume)", "category": "Product" }
+  ]
+}
+{% endschema %}
+
+
+

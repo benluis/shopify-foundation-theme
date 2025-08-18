@@ -1,0 +1,50 @@
+<div class="container mb-12 md:mb-24">
+  {% if section.settings.headline %}
+    <div class="text-2xl lg:text-3xl font-bold text-center mb-6 md:mb-12">
+      {{ section.settings.headline }}
+    </div>
+  {% endif %}
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {% for block in section.blocks %}
+      <div class="border p-6">
+        <div class="text-lg font-semibold mb-2">{{ block.settings.title }}</div>
+        <div class="text-gray-700">{{ block.settings.text }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Feature cards (Osume)",
+  "class": "shopify-section-vue",
+  "settings": [
+    { "type": "text", "id": "headline", "label": "Headline", "default": "Featuring" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "CNC'd Aluminum Body" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Solid construction with precise machining for a premium feel." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature cards (Osume)",
+      "category": "Text",
+      "blocks": [
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+

@@ -1,0 +1,309 @@
+<div class="container max-w-screen-lg">
+  <h1 class="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-16">
+    Contact & Support
+  </h1>
+
+  <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 mb-12 md:mb-16">
+    <!-- Quick Contact Info -->
+    <div class="lg:col-span-1">
+      <div class="bg-gray-50 p-6 rounded-lg">
+        <h2 class="text-xl font-bold mb-4">Get in Touch</h2>
+        
+        <div class="space-y-4 text-sm">
+          {% if section.settings.email %}
+            <div>
+              <span class="font-medium">Email:</span><br>
+              <a href="mailto:{{ section.settings.email }}" class="text-blue-600 hover:text-blue-800">
+                {{ section.settings.email }}
+              </a>
+            </div>
+          {% endif %}
+          
+          {% if section.settings.discord_link %}
+            <div>
+              <span class="font-medium">Discord:</span><br>
+              <a href="{{ section.settings.discord_link }}" target="_blank" class="text-blue-600 hover:text-blue-800">
+                Join our community
+              </a>
+            </div>
+          {% endif %}
+          
+          {% if section.settings.response_time %}
+            <div>
+              <span class="font-medium">Response Time:</span><br>
+              {{ section.settings.response_time }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="lg:col-span-2">
+      <h2 class="text-xl font-bold mb-6">Send us a Message</h2>
+      
+      {% form 'contact' %}
+        <div>
+          {% if form.posted_successfully? %}
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+              {{ 'contact.response' | t }}
+            </div>
+          {% endif %}
+
+          {% if form.errors %}
+            {% capture error_text %}
+              {{ form.errors | default_errors }}
+            {% endcapture%}
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+              {{ error_text }}
+            </div>
+          {% endif %}
+
+          <div class="grid md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label for="ContactFormName" class="block text-sm font-medium mb-2">
+                {{ 'form.name' | t }}*
+              </label>
+              <input
+                type="text"
+                name="contact[name]"
+                id="ContactFormName"
+                value="{% if form.name %}{{ form.name }}{% endif %}"
+                class="w-full border border-gray-300 rounded px-3 py-2"
+                required
+              >
+            </div>
+
+            <div>
+              <label for="ContactFormEmail" class="block text-sm font-medium mb-2">
+                {{ 'form.email' | t }}*
+              </label>
+              <input
+                type="email"
+                name="contact[email]"
+                id="ContactFormEmail"
+                value="{% if form.email %}{{ form.email }}{% endif %}"
+                class="w-full border border-gray-300 rounded px-3 py-2"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="ContactFormSubject" class="block text-sm font-medium mb-2">
+              Subject
+            </label>
+            <select name="contact[subject]" id="ContactFormSubject" class="w-full border border-gray-300 rounded px-3 py-2">
+              <option value="General Inquiry">General Inquiry</option>
+              <option value="Order Support">Order Support</option>
+              <option value="Technical Support">Technical Support</option>
+              <option value="Product Question">Product Question</option>
+              <option value="Partnership">Partnership</option>
+            </select>
+          </div>
+
+          <div class="mb-6">
+            <label for="ContactFormMessage" class="block text-sm font-medium mb-2">
+              {{ 'form.message' | t }}*
+            </label>
+            <textarea
+              rows="6"
+              name="contact[body]"
+              id="ContactFormMessage"
+              class="w-full border border-gray-300 rounded px-3 py-2"
+              placeholder="Tell us how we can help you..."
+              required
+            >{% if form.body %}{{ form.body }}{% endif %}</textarea>
+          </div>
+
+          <button type="submit" class="button button-primary">
+            {{ 'action.send' | t }}
+          </button>
+        </div>
+      {% endform %}
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="mb-12 md:mb-16">
+    <h2 class="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+    
+    <div class="max-w-3xl mx-auto space-y-4">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'faq_item' %}
+            <details class="bg-gray-50 rounded-lg">
+              <summary class="p-4 font-medium cursor-pointer hover:bg-gray-100 rounded-lg">
+                {{ block.settings.question }}
+              </summary>
+              <div class="px-4 pb-4 text-gray-700">
+                {{ block.settings.answer | newline_to_br }}
+              </div>
+            </details>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Support Info -->
+  {% if section.settings.show_support_info %}
+    <div class="bg-gray-50 p-8 rounded-lg text-center">
+      <h3 class="text-xl font-bold mb-4">{{ section.settings.support_title }}</h3>
+      <p class="text-gray-700 mb-6 max-w-2xl mx-auto">{{ section.settings.support_text }}</p>
+      
+      <div class="grid md:grid-cols-3 gap-4 max-w-2xl mx-auto">
+        {% if section.settings.shipping_info %}
+          <div>
+            <h4 class="font-semibold mb-2">Shipping</h4>
+            <p class="text-sm text-gray-600">{{ section.settings.shipping_info }}</p>
+          </div>
+        {% endif %}
+        
+        {% if section.settings.returns_info %}
+          <div>
+            <h4 class="font-semibold mb-2">Returns</h4>
+            <p class="text-sm text-gray-600">{{ section.settings.returns_info }}</p>
+          </div>
+        {% endif %}
+        
+        {% if section.settings.warranty_info %}
+          <div>
+            <h4 class="font-semibold mb-2">Warranty</h4>
+            <p class="text-sm text-gray-600">{{ section.settings.warranty_info }}</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Enhanced Contact Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contact Information"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email Address",
+      "default": "hello@aeris.studio"
+    },
+    {
+      "type": "url",
+      "id": "discord_link",
+      "label": "Discord Link"
+    },
+    {
+      "type": "text",
+      "id": "response_time",
+      "label": "Response Time",
+      "default": "Usually within 24 hours"
+    },
+    {
+      "type": "header",
+      "content": "Support Information"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_support_info",
+      "label": "Show Support Info Section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "support_title",
+      "label": "Support Section Title",
+      "default": "Need Help?"
+    },
+    {
+      "type": "textarea",
+      "id": "support_text",
+      "label": "Support Section Text",
+      "default": "We're here to help with any questions about your Killer65 keyboard, orders, or technical support."
+    },
+    {
+      "type": "text",
+      "id": "shipping_info",
+      "label": "Shipping Info",
+      "default": "Global shipping available"
+    },
+    {
+      "type": "text",
+      "id": "returns_info",
+      "label": "Returns Info",
+      "default": "30-day return policy"
+    },
+    {
+      "type": "text",
+      "id": "warranty_info",
+      "label": "Warranty Info",
+      "default": "1-year warranty included"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What's included with the Killer65?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "The Killer65 includes the aluminum case, gasket mount system, hotswap PCB, and your choice of counterweight finish."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Enhanced Contact Page",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What's included with the Killer65?",
+            "answer": "The Killer65 includes the aluminum case, gasket mount system, hotswap PCB, and your choice of counterweight finish. Switches and keycaps are sold separately."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "Group buy items typically take 3-4 months after the group buy concludes. In-stock items ship within 1-2 business days."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I customize my Killer65?",
+            "answer": "Yes! You can choose from 8 top frame colors, 7 bottom frame colors, and multiple counterweight finishes including PVD options."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What switches are compatible?",
+            "answer": "The Killer65 supports MX-style 3-pin and 5-pin switches. It's hotswap, so you can easily change switches without soldering."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you offer international shipping?",
+            "answer": "Yes, we ship worldwide. Shipping costs and delivery times vary by location. See checkout for specific rates."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

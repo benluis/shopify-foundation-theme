@@ -8,8 +8,31 @@
         {{ shop.name }}
       </a>
 
-      <div class="hidden md:block">
-        {% render 'layout-menu', class: 'space-x-4' %}
+      <div class="hidden md:flex space-x-4">
+        {% if section.settings.show_killer65_link %}
+          <a
+            href="/products/killer65"
+            class="inline-block text-lg leading-tight border-b transition duration-150 {% if request.page_type == 'product' and product.handle == 'killer65' %}border-black{% else %}border-transparent hover:border-black{% endif %}"
+          >
+            Killer65
+          </a>
+        {% endif %}
+        {% if section.settings.show_products_link %}
+          <a
+            href="/collections/all"
+            class="inline-block text-lg leading-tight border-b transition duration-150 {% if request.page_type == 'collection' %}border-black{% else %}border-transparent hover:border-black{% endif %}"
+          >
+            Products
+          </a>
+        {% endif %}
+        {% if section.settings.show_contact_link %}
+          <a
+            href="/pages/contact"
+            class="inline-block text-lg leading-tight border-b transition duration-150 {% if request.page_type == 'page' and page.handle == 'contact' %}border-black{% else %}border-transparent hover:border-black{% endif %}"
+          >
+            Contact
+          </a>
+        {% endif %}
       </div>
 
       {% assign link_class = 'flex flex-col justify-center items-center text-sm text-gray-600 hover:text-black font-medium transition duration-150 p-2' %}
@@ -24,15 +47,7 @@
           {{ 'action.search' | t }}
         </a>
 
-        {% if shop.customer_accounts_enabled %}
-          <a
-            href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
-            class="{{ link_class }}"
-          >
-            {% render 'icon-account', class: icon_class %}
-            {{ 'action.account' | t }}
-          </a>
-        {% endif %}
+
 
         <a
           href="{{ routes.cart_url }}"
@@ -56,6 +71,28 @@
 {
   "name": "t:sections.header.name",
   "settings": [
+    {
+      "type": "header",
+      "content": "Navigation Links"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_killer65_link",
+      "label": "Show Killer65 link",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_products_link",
+      "label": "Show Products link",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contact_link",
+      "label": "Show Contact link",
+      "default": true
+    },
     {
       "type": "paragraph",
       "content": "t:sections.header.settings.paragraph"

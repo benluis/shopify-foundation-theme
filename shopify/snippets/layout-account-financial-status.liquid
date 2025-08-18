@@ -1,31 +1,25 @@
-
 <div class="flex items-center {{ class | default: '' }}" style="{{ style | default: '' }}">
   {% assign financial_status_class = 'h-6 inline-flex justify-center items-center text-sm leading-none rounded-full pl-2 pr-3' %}
   {% assign financial_status_icon_class = 'w-5 flex-shrink-0 mr-1' %}
 
-  {% case order.financial_status %}
-    {% when 'pending' %}
-      <div class="{{ financial_status_class }} bg-gray-100 text-gray-600">
+  {% comment %} Determine color classes by status {% endcomment %}
+  {% assign financial_status_tone_class = 'bg-gray-100 text-gray-600' %}
+  {% if order.financial_status == 'authorized' or order.financial_status == 'paid' or order.financial_status == 'refunded' %}
+    {% assign financial_status_tone_class = 'bg-green-100 text-green-800' %}
+  {% elsif order.financial_status == 'voided' %}
+    {% assign financial_status_tone_class = 'bg-red-100 text-red-800' %}
+  {% endif %}
+
+  <div class="{{ financial_status_class }} {{ financial_status_tone_class }}">
+    {% if order.financial_status == 'pending' or order.financial_status == 'partially_paid' %}
       {% render 'icon-dots', class: financial_status_icon_class %}
-    {% when 'authorized' %}
-      <div class="{{ financial_status_class }} bg-green-100 text-green-800">
+    {% elsif order.financial_status == 'authorized' or order.financial_status == 'paid' %}
       {% render 'icon-check', class: financial_status_icon_class %}
-    {% when 'paid' %}
-      <div class="{{ financial_status_class }} bg-green-100 text-green-800">
-      {% render 'icon-check', class: financial_status_icon_class %}
-    {% when 'partially_paid' %}
-      <div class="{{ financial_status_class }} bg-gray-100 text-gray-600">
-      {% render 'icon-dots', class: financial_status_icon_class %}
-    {% when 'refunded' %}
-      <div class="{{ financial_status_class }} bg-green-100 text-green-800">
+    {% elsif order.financial_status == 'refunded' or order.financial_status == 'partially_refunded' %}
       {% render 'icon-back', class: financial_status_icon_class %}
-    {% when 'partially_refunded' %}
-      <div class="{{ financial_status_class }} bg-gray-100 text-gray-600">
-      {% render 'icon-back', class: financial_status_icon_class %}
-    {% when 'voided' %}
-      <div class="{{ financial_status_class }} bg-red-100 text-red-800">
+    {% elsif order.financial_status == 'voided' %}
       {% render 'icon-cancel', class: financial_status_icon_class %}
-  {% endcase %}
+    {% endif %}
 
     <span>
       {{ order.financial_status_label }}

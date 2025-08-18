@@ -12,7 +12,30 @@
     </button>
   </div>
 
-  <div class="p-4">
-    {% render 'layout-menu', class: 'flex flex-col items-start gap-4' %}
+  <div class="p-4 flex flex-col items-start gap-4">
+    {% if sections.header.settings.show_killer65_link %}
+      <a
+        href="/products/killer65"
+        class="inline-block text-lg leading-tight border-b transition duration-150 {% if request.page_type == 'product' and product.handle == 'killer65' %}border-black{% else %}border-transparent hover:border-black{% endif %}"
+      >
+        Killer65
+      </a>
+    {% endif %}
+    {% if sections.header.settings.show_products_link %}
+      <a
+        href="/collections/all"
+        class="inline-block text-lg leading-tight border-b transition duration-150 {% if request.page_type == 'collection' %}border-black{% else %}border-transparent hover:border-black{% endif %}"
+      >
+        Products
+      </a>
+    {% endif %}
+    {% if sections.header.settings.show_contact_link %}
+      <a
+        href="/pages/contact"
+        class="inline-block text-lg leading-tight border-b transition duration-150 {% if request.page_type == 'page' and page.handle == 'contact' %}border-black{% else %}border-transparent hover:border-black{% endif %}"
+      >
+        Contact
+      </a>
+    {% endif %}
   </div>
 </div>

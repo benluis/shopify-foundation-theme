@@ -1,6 +1,6 @@
 {% if section.settings.visible %}
   {% if section.settings.home_page_only == false or template.name == 'index' %}
-    <div class="container text-sm text-center py-2 text-white" style="text-shadow: 0 1px 2px rgba(0,0,0,0.2);">
+    <div class="container text-sm text-center text-white" style="text-shadow: 0 1px 2px rgba(0,0,0,0.2);">
       {{ section.settings.content }}
     </div>
   {% endif %}
@@ -27,7 +27,7 @@
       "type": "html",
       "id": "content",
       "label": "t:common.content",
-      "default": "join our discord for updates, group buy info, and community discussions → <a href=\"https://discord.gg/eJgCksvTYK\" class=\"underline\">https://discord.gg/eJgCksvTYK</a>"
+      "default": "join our discord for updates → <a href=\"https://discord.gg/eJgCksvTYK\" class=\"underline\">https://discord.gg/eJgCksvTYK</a>"
     }
   ]
 }

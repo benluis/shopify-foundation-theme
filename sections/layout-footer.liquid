@@ -3,10 +3,10 @@
     <!-- Company Info -->
     <div>
       <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
-        {{ 'Aeris Studio' | downcase }}
+        {{ section.settings.company_name | downcase }}
       </div>
       <div class="space-y-2 text-sm text-white" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
-        <p>{{ 'Premium mechanical keyboards designed for enthusiasts.' | downcase }}</p>
+        <p>{{ section.settings.company_description | downcase }}</p>
         {% if section.settings.show_email %}
           <p>
             <a href="mailto:{{ section.settings.email }}" class="hover:opacity-75 transition duration-150">
@@ -17,66 +17,39 @@
       </div>
     </div>
 
-    <!-- Products -->
-    <div>
-      <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
-        {{ 'Products' | downcase }}
-      </div>
-      <div class="space-y-2 text-sm">
-        <div>
-          <a href="/products/killer65" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
-            {{ 'Killer65' | downcase }}
-          </a>
+    {% if section.settings.links_1 != blank %}
+      <div>
+        <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+          {{ linklists[section.settings.links_1].title | downcase }}
         </div>
-        <div>
-          <a href="/collections/all" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
-            {{ 'All Products' | downcase }}
-          </a>
+        <div class="space-y-2 text-sm">
+          {% for link in linklists[section.settings.links_1].links %}
+            <div>
+              <a href="{{ link.url }}" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+                {{ link.title | downcase }}
+              </a>
+            </div>
+          {% endfor %}
         </div>
-        {% if section.settings.show_customization_link %}
-          <div>
-            <a href="/pages/customization" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
-              {{ 'Customization' | downcase }}
-            </a>
-          </div>
-        {% endif %}
       </div>
-    </div>
+    {% endif %}
 
-    <!-- Support -->
-    <div>
-      <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
-        {{ 'Support' | downcase }}
-      </div>
-      <div class="space-y-2 text-sm">
-        <div>
-          <a href="/pages/support" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
-            {{ 'Support' | downcase }}
-          </a>
+    {% if section.settings.links_2 != blank %}
+      <div>
+        <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+          {{ linklists[section.settings.links_2].title | downcase }}
         </div>
-        {% if section.settings.show_about_link %}
-          <div>
-            <a href="/pages/about" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
-              {{ 'About Us' | downcase }}
-            </a>
-          </div>
-        {% endif %}
-        {% if section.settings.discord_link %}
-          <div>
-            <a href="{{ section.settings.discord_link }}" target="_blank" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
-              {{ 'Discord Community' | downcase }}
-            </a>
-          </div>
-        {% endif %}
-        {% if section.settings.blog_link %}
-          <div>
-            <a href="{{ section.settings.blog_link }}" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
-              {{ 'Blog & Updates' | downcase }}
-            </a>
-          </div>
-        {% endif %}
+        <div class="space-y-2 text-sm">
+          {% for link in linklists[section.settings.links_2].links %}
+            <div>
+              <a href="{{ link.url }}" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+                {{ link.title | downcase }}
+              </a>
+            </div>
+          {% endfor %}
+        </div>
       </div>
-    </div>
+    {% endif %}
 
     {% if
       section.settings.social_instagram_visible or
@@ -154,6 +127,18 @@
       "content": "Company Information"
     },
     {
+      "type": "text",
+      "id": "company_name",
+      "label": "Company Name",
+      "default": "Aeris Studio"
+    },
+    {
+      "type": "textarea",
+      "id": "company_description",
+      "label": "Company Description",
+      "default": "Premium mechanical keyboards designed for enthusiasts."
+    },
+    {
       "type": "checkbox",
       "id": "show_email",
       "label": "Show Email Address",
@@ -170,26 +155,14 @@
       "content": "Links"
     },
     {
-      "type": "checkbox",
-      "id": "show_about_link",
-      "label": "Show About Us Link",
-      "default": true
+      "type": "link_list",
+      "id": "links_1",
+      "label": "Footer Links 1"
     },
     {
-      "type": "checkbox",
-      "id": "show_customization_link",
-      "label": "Show Customization Link",
-      "default": false
-    },
-    {
-      "type": "url",
-      "id": "discord_link",
-      "label": "Discord Link"
-    },
-    {
-      "type": "url",
-      "id": "blog_link",
-      "label": "Blog Link"
+      "type": "link_list",
+      "id": "links_2",
+      "label": "Footer Links 2"
     },
     {
       "type": "header",

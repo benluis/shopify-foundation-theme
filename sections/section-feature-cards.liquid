@@ -7,7 +7,7 @@
           {{ section.settings.headline | downcase }}
         </h2>
         <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
-          {{ 'Every detail engineered for the perfect typing experience' | downcase }}
+          {{ section.settings.subheading | downcase }}
         </p>
       </div>
     {% endif %}
@@ -17,7 +17,11 @@
         <div class="text-center group">
           <!-- Feature icon/visual placeholder -->
           <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-6 sm:mb-8 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-            <div class="w-8 h-8 sm:w-10 sm:h-10 bg-blue-600 rounded-lg"></div>
+            {% if block.settings.icon != blank %}
+              <img src="{{ block.settings.icon | image_url: width: 80 }}" alt="{{ block.settings.icon.alt | escape }}" class="w-8 h-8 sm:w-10 sm:h-10 object-contain">
+            {% else %}
+              <div class="w-8 h-8 sm:w-10 sm:h-10 bg-blue-600 rounded-lg"></div>
+            {% endif %}
           </div>
           
           <h3 class="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
@@ -38,13 +42,15 @@
   "name": "Feature cards (Osume)",
   "class": "shopify-section-vue",
   "settings": [
-    { "type": "text", "id": "headline", "label": "Headline", "default": "Featuring" }
+    { "type": "text", "id": "headline", "label": "Headline", "default": "Featuring" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Every detail engineered for the perfect typing experience" }
   ],
   "blocks": [
     {
       "type": "feature",
       "name": "Feature",
       "settings": [
+        { "type": "image_picker", "id": "icon", "label": "Icon" },
         { "type": "text", "id": "title", "label": "Title", "default": "CNC'd Aluminum Body" },
         { "type": "textarea", "id": "text", "label": "Text", "default": "Solid construction with precise machining for a premium feel." }
       ]

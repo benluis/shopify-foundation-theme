@@ -1,142 +1,97 @@
 <div class="custom-footer border-t border-gray-200/20 pt-12 pb-24">
-  <div class="container grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-8">
+  <div class="container grid grid-cols-1 lg:grid-cols-4 gap-x-4 gap-y-8">
+    
     <!-- Company Info -->
     <div>
       <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
-        {{ 'Aeris Studio' | downcase }}
+        {{ section.settings.company_name | downcase }}
       </div>
       <div class="space-y-2 text-sm text-white" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
-        <p>{{ 'Premium mechanical keyboards designed for enthusiasts.' | downcase }}</p>
-        {% if section.settings.show_email %}
-          <p>
-            <a href="mailto:{{ section.settings.email }}" class="hover:opacity-75 transition duration-150">
-              {{ section.settings.email | downcase }}
-            </a>
-          </p>
-        {% endif %}
+        <p>{{ section.settings.company_description }}</p>
       </div>
     </div>
 
-    <!-- Products -->
-    <div>
-      <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
-        {{ 'Products' | downcase }}
-      </div>
-      <div class="space-y-2 text-sm">
-        <div>
-          <a href="/products/killer65" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
-            {{ 'Killer65' | downcase }}
-          </a>
-        </div>
-        <div>
-          <a href="/collections/all" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
-            {{ 'All Products' | downcase }}
-          </a>
-        </div>
-        {% if section.settings.show_customization_link %}
-          <div>
-            <a href="/pages/customization" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
-              {{ 'Customization' | downcase }}
-            </a>
-          </div>
-        {% endif %}
-      </div>
-    </div>
-
-    <!-- Support -->
-    <div>
-      <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
-        {{ 'Support' | downcase }}
-      </div>
-      <div class="space-y-2 text-sm">
-        <div>
-          <a href="/pages/support" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
-            {{ 'Support' | downcase }}
-          </a>
-        </div>
-        {% if section.settings.show_about_link %}
-          <div>
-            <a href="/pages/about" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
-              {{ 'About Us' | downcase }}
-            </a>
-          </div>
-        {% endif %}
-        {% if section.settings.discord_link %}
-          <div>
-            <a href="{{ section.settings.discord_link }}" target="_blank" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
-              {{ 'Discord Community' | downcase }}
-            </a>
-          </div>
-        {% endif %}
-        {% if section.settings.blog_link %}
-          <div>
-            <a href="{{ section.settings.blog_link }}" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
-              {{ 'Blog & Updates' | downcase }}
-            </a>
-          </div>
-        {% endif %}
-      </div>
-    </div>
-
-    {% if
-      section.settings.social_instagram_visible or
-      section.settings.social_twitter_visible or
-      section.settings.social_facebook_visible or
-      section.settings.social_youtube_visible
-    %}
+    <!-- Company Links -->
+    {% if section.settings.company_links != blank %}
       <div>
         <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
-          {{ 'footer.social' | t | downcase }}
+          {{ linklists[section.settings.company_links].title | downcase }}
         </div>
-
-        {% render 'layout-social',
-          social_instagram_visible: section.settings.social_instagram_visible
-          social_instagram_link: section.settings.social_instagram_link
-          social_twitter_visible: section.settings.social_twitter_visible
-          social_twitter_link: section.settings.social_twitter_link
-          social_facebook_visible: section.settings.social_facebook_visible
-          social_facebook_link: section.settings.social_facebook_link
-          social_youtube_visible: section.settings.social_youtube_visible
-          social_youtube_link: section.settings.social_youtube_link
-        %}
-      </div>
-    {% endif %}
-
-    {% assign enabled_locales = shop.enabled_locales | size %}
-    {% assign enabled_currencies = shop.enabled_currencies | size %}
-
-    {% if enabled_locales > 1 or enabled_currencies > 1 %}
-      <div>
-        <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
-          {{ 'footer.settings' | t | downcase }}
-        </div>
-
-        <div class="flex space-x-2">
-          {% if enabled_locales > 1 %}
-            {% render 'layout-select-locale' %}
-          {% endif %}
-
-          {% if enabled_currencies > 1 %}
-            {% render 'layout-select-currency' %}
-          {% endif %}
-        </div>
-      </div>
-    {% endif %}
-
-    {% if shop.enabled_payment_types != blank %}
-      <div class="col-span-2">
-        <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
-          {{ 'footer.payment_methods' | t | downcase }}
-        </div>
-
-        <div class="flex flex-wrap space-x-2">
-          {% for type in shop.enabled_payment_types %}
-            {{ type | payment_type_svg_tag: class: 'w-12 h-auto mb-2' }}
+        <div class="space-y-2 text-sm">
+          {% for link in linklists[section.settings.company_links].links %}
+            <div>
+              <a href="{{ link.url }}" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+                {{ link.title | downcase }}
+              </a>
+            </div>
           {% endfor %}
         </div>
       </div>
     {% endif %}
+
+    <!-- Policies Links -->
+    {% if section.settings.policies_links != blank %}
+      <div>
+        <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+          {{ linklists[section.settings.policies_links].title | downcase }}
+        </div>
+        <div class="space-y-2 text-sm">
+          {% for link in linklists[section.settings.policies_links].links %}
+            <div>
+              <a href="{{ link.url }}" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+                {{ link.title | downcase }}
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- Socials -->
+    {% if section.settings.social_instagram_visible or section.settings.social_twitter_visible or section.settings.social_facebook_visible or section.settings.social_youtube_visible %}
+      <div>
+        <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+          {{ 'footer.social' | t | downcase }}
+        </div>
+        {% render 'layout-social',
+          social_instagram_visible: section.settings.social_instagram_visible,
+          social_instagram_link: section.settings.social_instagram_link,
+          social_twitter_visible: section.settings.social_twitter_visible,
+          social_twitter_link: section.settings.social_twitter_link,
+          social_facebook_visible: section.settings.social_facebook_visible,
+          social_facebook_link: section.settings.social_facebook_link,
+          social_youtube_visible: section.settings.social_youtube_visible,
+          social_youtube_link: section.settings.social_youtube_link
+        %}
+      </div>
+    {% endif %}
   </div>
+
+  <!-- Newsletter -->
+  {% if section.settings.show_newsletter %}
+    <div class="container mt-12">
+      <div class="text-lg font-bold mb-3 text-white text-center" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+        {{ section.settings.newsletter_headline | downcase }}
+      </div>
+      <p class="text-sm text-white text-center mb-4" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+        {{ section.settings.newsletter_subheading }}
+      </p>
+      {% form 'customer', class: 'flex justify-center' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <div class="flex">
+          <input
+            type="email"
+            name="contact[email]"
+            class="py-2 px-4 rounded-l-md border-r-0 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Your email"
+          >
+          <button type="submit" class="py-2 px-6 bg-blue-600 text-white font-semibold rounded-r-md hover:bg-blue-700 transition duration-150">
+            Subscribe
+          </button>
+        </div>
+      {% endform %}
+    </div>
+  {% endif %}
 </div>
 
 <div class="border-t border-gray-200/20 py-8">
@@ -154,42 +109,48 @@
       "content": "Company Information"
     },
     {
+      "type": "text",
+      "id": "company_name",
+      "label": "Company Name",
+      "default": "Aeris Studio"
+    },
+    {
+      "type": "textarea",
+      "id": "company_description",
+      "label": "Company Description",
+      "default": "Premium mechanical keyboards designed for enthusiasts."
+    },
+    {
+      "type": "link_list",
+      "id": "company_links",
+      "label": "Company Links"
+    },
+    {
+      "type": "link_list",
+      "id": "policies_links",
+      "label": "Policies Links"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
       "type": "checkbox",
-      "id": "show_email",
-      "label": "Show Email Address",
+      "id": "show_newsletter",
+      "label": "Show Newsletter Signup",
       "default": true
     },
     {
       "type": "text",
-      "id": "email",
-      "label": "Email Address",
-      "default": "hello@aeris.studio"
+      "id": "newsletter_headline",
+      "label": "Newsletter Headline",
+      "default": "Stay Updated"
     },
     {
-      "type": "header",
-      "content": "Links"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_about_link",
-      "label": "Show About Us Link",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_customization_link",
-      "label": "Show Customization Link",
-      "default": false
-    },
-    {
-      "type": "url",
-      "id": "discord_link",
-      "label": "Discord Link"
-    },
-    {
-      "type": "url",
-      "id": "blog_link",
-      "label": "Blog Link"
+      "type": "text",
+      "id": "newsletter_subheading",
+      "label": "Newsletter Subheading",
+      "default": "Subscribe to our newsletter for the latest news and offers."
     },
     {
       "type": "header",

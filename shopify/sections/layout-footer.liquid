@@ -60,17 +60,9 @@
       <div class="md:col-span-1">
         <h3 class="text-lg font-semibold mb-4">{{ section.settings.reach_us_heading }}</h3>
         {% render 'layout-social',
-          social_facebook_visible: true,
-          social_facebook_link: section.settings.social_facebook_link,
-          social_linkedin_visible: true,
-          social_linkedin_link: section.settings.social_linkedin_link,
-          social_instagram_visible: true,
+          social_discord_link: section.settings.social_discord_link,
           social_instagram_link: section.settings.social_instagram_link,
-          social_youtube_visible: true,
           social_youtube_link: section.settings.social_youtube_link,
-          social_twitter_visible: true,
-          social_twitter_link: section.settings.social_twitter_link,
-          social_tiktok_visible: true,
           social_tiktok_link: section.settings.social_tiktok_link
         %}
         {% if section.settings.links_3 != blank %}

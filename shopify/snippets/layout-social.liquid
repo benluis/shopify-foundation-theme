@@ -1,20 +1,14 @@
 <div class="flex items-center space-x-4">
-  {% if social_facebook_visible %}
-    {% render 'icon-social-facebook' social_facebook_link: social_facebook_link %}
+  {% if social_discord_link != blank %}
+    {% render 'icon-social-discord' social_discord_link: social_discord_link %}
   {% endif %}
-  {% if social_instagram_visible %}
+  {% if social_instagram_link != blank %}
     {% render 'icon-social-instagram' social_instagram_link: social_instagram_link %}
   {% endif %}
-  {% if social_linkedin_visible %}
-    {% render 'icon-social-linkedin' social_linkedin_link: social_linkedin_link %}
-  {% endif %}
-  {% if social_twitter_visible %}
-    {% render 'icon-social-twitter' social_twitter_link: social_twitter_link %}
-  {% endif %}
-  {% if social_tiktok_visible %}
+  {% if social_tiktok_link != blank %}
     {% render 'icon-social-tiktok' social_tiktok_link: social_tiktok_link %}
   {% endif %}
-  {% if social_youtube_visible %}
+  {% if social_youtube_link != blank %}
     {% render 'icon-social-youtube' social_youtube_link: social_youtube_link %}
   {% endif %}
 </div>

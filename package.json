@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "run-p -sr shopify:dev webpack:watch",
-    "deploy": "run-s webpack:build && cd shopify && shopify theme push",
+    "deploy": "node deploy.js",
     "deploy:new": "run-s webpack:build && cd shopify && shopify theme push --unpublished",
     "deploy:github": "node deploy.js",
     "webpack:watch": "cross-env NODE_ENV=development BROWSERSLIST_ENV=development BROWSERSLIST_CONFIG=.config/.browserslistrc webpack --config .config/webpack/webpack.dev.js --watch --progress",
@@ -24,6 +24,7 @@
     "fix:shopify": "cd shopify && shopify theme check -a"
   },
   "dependencies": {
+    "@babel/runtime": "^7.28.4",
     "tailwindcss": "^3.0.2",
     "vue": "^3.2.26",
     "vuex": "^4.0.2"

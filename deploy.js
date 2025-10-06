@@ -9,7 +9,8 @@ const CONFIG = {
   sourceDir: './shopify',
   distRepoPath: '../aeris-theme',
   distRepoUrl: 'https://github.com/benluis/aeris-theme.git',
-  buildCommand: 'npm run webpack:build'
+  buildCommand: 'npm run webpack:build',
+  productionBranch: 'production'
 };
 
 // Colors for console output
@@ -80,7 +81,7 @@ async function deployTheme() {
     await fs.copy(CONFIG.sourceDir, CONFIG.distRepoPath);
     log(' Files copied successfully!', 'green');
 
-    // Step 5: Initialize git if needed (but don't push)
+    // Step 5: Set up git repository and production branch
     const gitExists = await fs.pathExists(path.join(CONFIG.distRepoPath, '.git'));
     if (!gitExists) {
       log('\n🔧 Initializing git repository...', 'yellow');
@@ -89,34 +90,63 @@ async function deployTheme() {
       log(' Git repository initialized!', 'green');
     }
 
-    // Step 6: Stage files (but don't commit)
-    log('\n Staging files for commit...', 'yellow');
-    run('git add .', CONFIG.distRepoPath);
-    
-    // Check if there are changes to commit
-    const noChanges = run('git diff --staged --quiet', CONFIG.distRepoPath, true);
-    if (noChanges) {
-      log('ℹ  No changes to stage', 'blue');
+    // Step 6: Configure git user for automated commits
+    log('\n🔧 Configuring git user...', 'yellow');
+    run('git config user.name "Aeris Theme Deploy"', CONFIG.distRepoPath, true);
+    run('git config user.email "deploy@aeris-theme.com"', CONFIG.distRepoPath, true);
+
+    // Step 7: Create or switch to production branch
+    log(`\n🌿 Setting up ${CONFIG.productionBranch} branch...`, 'yellow');
+    const branchExists = run(`git show-ref --verify --quiet refs/heads/${CONFIG.productionBranch}`, CONFIG.distRepoPath, true);
+
+    if (!branchExists) {
+      log(` Creating new ${CONFIG.productionBranch} branch...`, 'yellow');
+      run(`git checkout -b ${CONFIG.productionBranch}`, CONFIG.distRepoPath);
     } else {
-      log(' Files staged and ready for commit!', 'green');
+      log(` Switching to existing ${CONFIG.productionBranch} branch...`, 'yellow');
+      run(`git checkout ${CONFIG.productionBranch}`, CONFIG.distRepoPath);
+    }
+    log(` Successfully switched to ${CONFIG.productionBranch} branch!`, 'green');
+
+    // Step 8: Add and commit changes
+    log('\n💾 Committing theme changes...', 'yellow');
+    run('git add .', CONFIG.distRepoPath);
+
+    // Check if there are changes to commit
+    const hasChanges = !run('git diff --staged --quiet', CONFIG.distRepoPath, true);
+    if (hasChanges) {
+      const commitMessage = `Update Aeris theme - ${new Date().toISOString()}`;
+      run(`git commit -m "${commitMessage}"`, CONFIG.distRepoPath);
+      log(' Changes committed successfully!', 'green');
+
+      // Step 9: Push to production branch
+      log(`\n🚀 Pushing to ${CONFIG.productionBranch} branch...`, 'yellow');
+      try {
+        run(`git push origin ${CONFIG.productionBranch}`, CONFIG.distRepoPath);
+        log(` Successfully pushed to ${CONFIG.productionBranch} branch!`, 'green');
+      } catch (error) {
+        log('\n⚠️  Push failed - this might be the first push to the remote branch', 'yellow');
+        log(' You may need to push manually or set up the remote branch first:', 'yellow');
+        log(` git push -u origin ${CONFIG.productionBranch}`, 'cyan');
+      }
+    } else {
+      log('ℹ️  No changes to commit', 'blue');
     }
 
-    // Step 7: Success message
-    log('\n Theme Preparation Complete!', 'bright');
+    // Step 10: Success message
+    log('\n🎉 Theme Deployment Complete!', 'bright');
     log('================================', 'bright');
-    log('Your theme files are ready for deployment!', 'green');
-    log(`\n Distribution directory: ${CONFIG.distRepoPath}`, 'cyan');
+    log(`✅ Successfully deployed to ${CONFIG.productionBranch} branch!`, 'green');
+    log(`\n📁 Distribution directory: ${CONFIG.distRepoPath}`, 'cyan');
     log(`🔗 Remote repository: ${CONFIG.distRepoUrl}`, 'cyan');
-    log('\n Next steps:', 'yellow');
-    log('  1. Navigate to the distribution directory', 'white');
-    log('  2. Review the staged changes: git status', 'white');
-    log('  3. Commit the changes: git commit -m "Update theme"', 'white');
-    log('  4. Push to GitHub: git push origin main', 'white');
-    log('\n Or run these commands:', 'yellow');
-    log(`cd "${CONFIG.distRepoPath}"`, 'cyan');
-    log('git status', 'cyan');
-    log('git commit -m "Update theme"', 'cyan');
-    log('git push origin main', 'cyan');
+    log(`🌿 Branch: ${CONFIG.productionBranch}`, 'cyan');
+    log('\n📋 What was deployed:', 'yellow');
+    log('  • Built theme assets (CSS, JS)', 'white');
+    log('  • Shopify theme files from ./shopify/ directory', 'white');
+    log('  • All sections, templates, and configuration', 'white');
+    log('\n🔄 Next deployment:', 'yellow');
+    log('  Simply run this script again to update the production branch', 'white');
+    log('  Previous deployments will be preserved in git history', 'white');
 
   } catch (error) {
     log('\n Theme preparation failed!', 'red');

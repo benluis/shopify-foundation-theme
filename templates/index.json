@@ -1,102 +1,83 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "section-hero": {
       "type": "section-hero",
       "settings": {
+        "background_type": "video",
+        "video_url": "https://d3qqnkw9d395j4.cloudfront.net/splash_video.mp4",
         "headline": "Killer65",
         "text": "A 65% aluminum keyboard with gasket mount and PVD accents—built to feel premium from day one.",
-        "video_url": "https:\/\/d3qqnkw9d395j4.cloudfront.net\/splash_video.mp4",
-        "button-url": "\/products\/killer65",
-        "button-text": "Shop Killer65"
-      }
-    },
-    "section-banner-blog": {
-      "type": "section-banner",
-      "settings": {
-        "headline": "Guides & Updates",
-        "text": "Check out our latest build guides, community updates, and behind-the-scenes content from the Aeris Studio team.",
-        "button-url": "https:\/\/aeris.studio\/blogs\/news",
-        "button-text": "Read our blog",
-        "text_position": "left"
-      }
-    },
-    "section-banner-customise": {
-      "type": "section-banner",
-      "settings": {
-        "headline": "Customise your Killer65",
-        "text": "Pick top/bottom frames and counterweights to match your keycaps.",
-        "button-url": "\/products\/killer65",
-        "button-text": "Customise"
+        "price_text": "Starting at $149",
+        "button_url": "shopify://products/copy-of-killer65-kit-1",
+        "button_text": "Buy Now",
+        "button_2_url": "",
+        "button_2_text": "Learn More"
       }
     },
     "section-feature-cards": {
       "type": "section-feature-cards",
       "blocks": {
-        "feature-1": { "type": "feature", "settings": { "title": "CNC'd aluminum body", "text": "Precision‑machined for weight, stability, and longevity." } },
-        "feature-2": { "type": "feature", "settings": { "title": "Gasket mount (Poron)", "text": "Soft, isolated typing feel with a satisfying sound profile." } },
-        "feature-3": { "type": "feature", "settings": { "title": "Engraved PVD counterweight", "text": "A refined accent that elevates the overall aesthetic." } }
-      },
-      "block_order": ["feature-1", "feature-2", "feature-3"],
-      "settings": { "headline": "Featuring" }
-    },
-    "section-image-row": {
-      "type": "section-image-row",
-      "blocks": {
-        "image-1": {
-          "type": "image",
+        "feature-1": {
+          "type": "feature",
           "settings": {
+            "title": "CNC'd aluminum body",
+            "text": "Precision‑machined for weight, stability, and longevity."
           }
         },
-        "image-2": {
-          "type": "image",
+        "feature-2": {
+          "type": "feature",
           "settings": {
+            "title": "Gasket mount (Poron)",
+            "text": "Soft, isolated typing feel with a satisfying sound profile."
           }
         },
-        "image-3": {
-          "type": "image",
+        "feature-3": {
+          "type": "feature",
           "settings": {
+            "title": "Engraved PVD counterweight",
+            "text": "A refined accent that elevates the overall aesthetic."
           }
         }
       },
       "block_order": [
-        "image-1",
-        "image-2",
-        "image-3"
-      ],
-      "settings": { "headline": "Killer65 gallery" }
-    },
-    "section-quotes": {
-      "type": "section-quotes",
-      "blocks": {
-        "quote-1": {
-          "type": "quote",
-          "settings": {
-            "quote-text": "Amazing value. Killer65 feels premium and sounds great.",
-            "quote-author": "Jason"
-          }
-        },
-        "quote-2": {
-          "type": "quote",
-          "settings": {
-            "quote-text": "Gasket mount at this price is a win.",
-            "quote-author": "Mina"
-          }
-        },
-        "quote-3": {
-          "type": "quote",
-          "settings": {
-            "quote-text": "Easy to customize to match my keycap sets.",
-            "quote-author": "Leo"
-          }
-        }
-      },
-      "block_order": [
-        "quote-1",
-        "quote-2",
-        "quote-3"
+        "feature-1",
+        "feature-2",
+        "feature-3"
       ],
       "settings": {
-        "headline": "Reviews"
+        "headline": "Featuring",
+        "subheading": "Every detail engineered for the perfect typing experience"
+      }
+    },
+    "section-banner-customise": {
+      "type": "section-banner",
+      "settings": {
+        "image": "shopify://shop_images/mess.jpg",
+        "headline": "Customise your Killer65",
+        "text": "Pick top/bottom frames and counterweights to match your keycaps.",
+        "button-text": "Customise",
+        "button-url": "/products/killer65",
+        "text_position": "right"
+      }
+    },
+    "section-banner-blog": {
+      "type": "section-banner",
+      "settings": {
+        "image": "shopify://shop_images/logosmalltrans.png",
+        "headline": "Guides & Updates",
+        "text": "Check out our latest build guides, community updates, and behind-the-scenes content from the Aeris Studio team.",
+        "button-text": "Read our blog",
+        "button-url": "https://aeris.studio/blogs/news",
+        "text_position": "left"
       }
     },
     "section-newsletter": {
@@ -110,8 +91,6 @@
   "order": [
     "section-hero",
     "section-feature-cards",
-    "section-image-row",
-    "section-quotes",
     "section-banner-customise",
     "section-banner-blog",
     "section-newsletter"

@@ -1,55 +1,68 @@
 {% assign image = section.settings.image %}
+
 {% assign image_order_md = '' %}
 {% assign text_order_md = '' %}
 {% if section.settings.text_position == 'left' %}
-  {% assign image_order_md = 'md:order-2' %}
-  {% assign text_order_md = 'md:order-1' %}
+  {% assign image_order_md = 'lg:order-2' %}
+  {% assign text_order_md = 'lg:order-1' %}
 {% endif %}
 
-<div class="container grid md:grid-cols-2 lg:grid-cols-3 items-center mb-12 md:mb-24">
-  <div class="lg:col-span-2 {{ image_order_md }}">
-    {% if image %}
-      <img
-        sizes="
-          (min-width: 1536px) 1000px,
-          (min-width: 1280px) 850px,
-          (min-width: 1024px) 700px,
-          (min-width: 768px) 400px,
-          (min-width: 640px) 500px,
-          600px
-        "
-        srcset="
-          {{ image | img_url: '400x' }} 400w,
-          {{ image | img_url: '500x' }} 500w,
-          {{ image | img_url: '600x' }} 600w,
-          {{ image | img_url: '700x' }} 700w,
-          {{ image | img_url: '850x' }} 850w,
-          {{ image | img_url: '1000x' }} 1000w
-        "
-        src="{{ image | img_url: '1000x' }}"
-        alt="{{ image.alt }}"
-        loading="lazy"
-        class="w-full h-full object-cover object-center"
-      >
-    {% else %}
-      {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-full' }}
-    {% endif %}
-  </div>
+<!-- Apple-style banner section -->
+<section class="py-16 sm:py-24 lg:py-32 bg-white">
+  <div class="container">
+    <div class="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
+      <div class="lg:col-span-1 {{ image_order_md }}">
+        {% if image %}
+          <div class="aspect-square overflow-hidden rounded-3xl bg-gray-100">
+            <img
+              sizes="
+                (min-width: 1024px) 500px,
+                (min-width: 768px) 600px,
+                100vw
+              "
+              srcset="
+                {{ image | img_url: '400x' }} 400w,
+                {{ image | img_url: '600x' }} 600w,
+                {{ image | img_url: '800x' }} 800w,
+                {{ image | img_url: '1000x' }} 1000w
+              "
+              src="{{ image | img_url: '800x' }}"
+              alt="{{ image.alt }}"
+              loading="lazy"
+              class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-700"
+            >
+          </div>
+        {% else %}
+          <div class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl flex items-center justify-center">
+            <div class="text-gray-400 text-center">
+              <div class="w-16 h-16 mx-auto mb-4 bg-gray-300 rounded-2xl"></div>
+              <p class="text-sm">Product Image</p>
+            </div>
+          </div>
+        {% endif %}
+      </div>
 
-  <div class="flex flex-col justify-center items-start pt-4 md:p-8 {{ text_order_md }}">
-    <div class="text-2xl lg:text-3xl font-bold mb-2">
-      {{ section.settings.headline }}
+      <div class="lg:col-span-1 {{ text_order_md }}">
+        <div class="max-w-lg">
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-thin text-gray-900 mb-4 sm:mb-6 tracking-tight">
+            {{ section.settings.headline }}
+          </h2>
+
+          <p class="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed">
+            {{ section.settings.text }}
+          </p>
+
+          <a 
+            href="{{ section.settings.button-url }}" 
+            class="inline-flex items-center justify-center px-8 py-3 bg-blue-600 text-white text-base font-medium rounded-full hover:bg-blue-700 transition-colors duration-200"
+          >
+            {{ section.settings.button-text }}
+          </a>
+        </div>
+      </div>
     </div>
-
-    <div class="mb-6">
-      {{ section.settings.text }}
-    </div>
-
-    <a href="{{ section.settings.button-url }}" class="button button-primary">
-      {{ section.settings.button-text }}
-    </a>
   </div>
-</div>
+</section>
 
 {% schema %}
 {
@@ -65,40 +78,44 @@
       "type": "text",
       "id": "headline",
       "label": "t:common.headline",
-      "default": "Headline"
+      "default": "Banner headline"
     },
     {
       "type": "textarea",
       "id": "text",
       "label": "t:common.text",
-      "default": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quos hic praesentium recusandae dolores odio animi deleniti officia cum itaque."
-    },
-    {
-      "type": "url",
-      "id": "button-url",
-      "label": "t:common.button.url"
+      "default": "Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store."
     },
     {
       "type": "text",
       "id": "button-text",
-      "label": "t:common.button.text",
-      "default": "Button"
+      "label": "t:common.button_text",
+      "default": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "button-url",
+      "label": "t:common.button_url"
     },
     {
       "type": "select",
       "id": "text_position",
-      "label": "Text position on desktop",
-      "default": "right",
+      "label": "Text position",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "right", "label": "Right" }
-      ]
-    }
-  ],
-  "presets": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "right"
+    },
     {
-      "name": "t:sections.banner.name",
-      "category": "Image"
+      "type": "paragraph",
+      "content": "t:sections.banner.settings.paragraph"
     }
   ]
 }

@@ -1,17 +1,17 @@
 <div class="container max-w-screen-lg">
-  <h1 class="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-16">
+  <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-center mb-4 sm:mb-6 lg:mb-8">
     {{ page.title }}
   </h1>
 
-  <div class="prose prose-gray max-w-none mb-12 md:mb-16">
+  <div class="prose prose-gray max-w-none mb-6 sm:mb-8 lg:mb-12 text-sm sm:text-base">
     {{ page.content }}
   </div>
 
   <!-- Team Section -->
-  <div class="mb-12 md:mb-16">
-    <h2 class="text-2xl lg:text-3xl font-bold text-center mb-8">{{ section.settings.team_headline }}</h2>
+  <div class="mb-6 sm:mb-8 lg:mb-12">
+    <h2 class="text-lg sm:text-xl lg:text-2xl font-bold text-center mb-4 sm:mb-6">{{ section.settings.team_headline }}</h2>
     
-    <div class="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+    <div class="grid sm:grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 max-w-3xl mx-auto">
       {% for block in section.blocks %}
         {% case block.type %}
           {% when 'team_member' %}

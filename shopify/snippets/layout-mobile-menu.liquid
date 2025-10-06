@@ -1,41 +1,82 @@
-<div v-if="$store.state['mobile-menu'].visible" class="w-full max-w-screen-md h-full md:hidden bg-white border-l fixed top-0 right-0 {{ class | default: '' }}" style="{{ style | default: '' }}">
-  <div class="border-b p-4">
+<!-- Apple-style mobile dropdown menu -->
+<div v-if="$store.state['mobile-menu'].visible" class="w-full max-w-sm h-full lg:hidden bg-white/95 backdrop-blur-md shadow-xl fixed top-0 right-0 z-50 {{ class | default: '' }}" style="{{ style | default: '' }}">
+  <div class="border-b border-gray-100 p-4">
     <button
-      class="flex justify-center items-center"
+      class="flex items-center text-gray-600 hover:text-black transition duration-150"
       @click="$store.dispatch('mobile-menu/hide')"
+      aria-label="Close menu"
     >
-      {% render 'icon-cancel', class: 'w-6 h-auto mr-1' %}
-
-      <div>
-        {{ 'action.close' | t }}
-      </div>
+      {% render 'icon-cancel', class: 'w-4 h-4 mr-2' %}
+      <span class="text-sm font-normal">Close</span>
     </button>
   </div>
 
-  <div class="p-4 flex flex-col items-start gap-4">
-    {% if sections.header.settings.show_killer65_link %}
-      <a
-        href="/products/killer65"
-        class="inline-block text-lg leading-tight border-b transition duration-150 {% if request.page_type == 'product' and product.handle == 'killer65' %}border-black{% else %}border-transparent hover:border-black{% endif %}"
-      >
-        Killer65
-      </a>
-    {% endif %}
-    {% if sections.header.settings.show_products_link %}
-      <a
-        href="/collections/all"
-        class="inline-block text-lg leading-tight border-b transition duration-150 {% if request.page_type == 'collection' %}border-black{% else %}border-transparent hover:border-black{% endif %}"
-      >
-        Products
-      </a>
-    {% endif %}
-    {% if sections.header.settings.show_contact_link %}
-      <a
-        href="/pages/contact"
-        class="inline-block text-lg leading-tight border-b transition duration-150 {% if request.page_type == 'page' and page.handle == 'contact' %}border-black{% else %}border-transparent hover:border-black{% endif %}"
-      >
-        Contact
-      </a>
-    {% endif %}
+  <div class="p-4">
+    <!-- Primary Navigation - Dynamic Menu -->
+    <nav class="space-y-1">
+      <!-- Featured Product -->
+      {% if sections.header.settings.show_killer65_link %}
+        <a
+          href="/products/killer65"
+          class="block py-4 text-lg font-light text-gray-900 border-b border-gray-100 transition duration-150 {% if request.page_type == 'product' and product.handle == 'killer65' %}bg-gray-50{% else %}hover:bg-gray-50{% endif %}"
+        >
+          Killer65
+        </a>
+      {% endif %}
+
+      <!-- Collections/Categories -->
+      {% for collection in collections limit: 5 %}
+        {% unless collection.handle == 'frontpage' %}
+          <a
+            href="{{ collection.url }}"
+            class="block py-4 text-lg font-light text-gray-900 border-b border-gray-100 transition duration-150 {% if collection.current %}bg-gray-50{% else %}hover:bg-gray-50{% endif %}"
+          >
+            {{ collection.title }}
+          </a>
+        {% endunless %}
+      {% endfor %}
+
+      <!-- All Products Link -->
+      {% if sections.header.settings.show_products_link %}
+        <a
+          href="/collections/all"
+          class="block py-4 text-lg font-light text-gray-900 border-b border-gray-100 transition duration-150 {% if request.page_type == 'collection' and collection.handle == 'all' %}bg-gray-50{% else %}hover:bg-gray-50{% endif %}"
+        >
+          All Products
+        </a>
+      {% endif %}
+
+      <!-- Support -->
+      {% if sections.header.settings.show_support_link %}
+        <a
+          href="/pages/support"
+          class="block py-4 text-lg font-light text-gray-900 border-b border-gray-100 transition duration-150 {% if request.page_type == 'page' and page.handle == 'support' %}bg-gray-50{% else %}hover:bg-gray-50{% endif %}"
+        >
+          Support
+        </a>
+      {% endif %}
+    </nav>
+
+    <!-- Secondary Links -->
+    <div class="mt-8 pt-6 border-t border-gray-100">
+      <!-- Main Menu Links (if you have a main menu setup) -->
+      {% for link in linklists.main-menu.links limit: 3 %}
+        {% unless link.title == 'Products' or link.title == 'Killer65' %}
+          <a href="{{ link.url }}" class="block py-3 text-base font-light text-gray-600 hover:text-gray-900 transition duration-150 {% if link.current %}text-gray-900{% endif %}">
+            {{ link.title }}
+          </a>
+        {% endunless %}
+      {% endfor %}
+      
+      <!-- Fallback links if no main menu -->
+      {% if linklists.main-menu.links.size == 0 %}
+        <a href="/pages/about" class="block py-3 text-base font-light text-gray-600 hover:text-gray-900 transition duration-150">
+          About
+        </a>
+        <a href="/blogs/news" class="block py-3 text-base font-light text-gray-600 hover:text-gray-900 transition duration-150">
+          News
+        </a>
+      {% endif %}
+    </div>
   </div>
 </div>

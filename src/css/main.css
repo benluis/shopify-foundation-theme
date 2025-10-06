@@ -11,3 +11,35 @@
 @import "_transitions";
 
 @import "tailwindcss/utilities";
+
+.header-container {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.header-gradient {
+  position: relative;
+  z-index: 1;
+}
+
+.header-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.75), transparent);
+}
+
+.custom-footer {
+  position: relative;
+}
+
+.custom-footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}

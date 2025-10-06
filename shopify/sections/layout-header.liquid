@@ -1,63 +1,81 @@
-<div class="bg-white border-b border-gray-200">
+<!-- Apple-style header -->
+<div class="header-gradient">
   <div class="container">
-    <div class="h-20 md:h-32 flex justify-center md:justify-between items-center">
-      <a
-        href="{{ routes.root_url }}"
-        class="inline-block text-2xl lg:text-3xl font-bold"
-      >
-        {{ shop.name }}
+    <div class="h-12 sm:h-14 lg:h-16 flex items-center">
+      <!-- Logo (always on left) -->
+      <a href="{{ routes.root_url }}" class="mr-6 lg:mr-8">
+        {% if section.settings.logo %}
+          {%- assign logo_widths = "80, 120, 160, 200, 240, 320" | split: "," -%}
+          <img
+            srcset="{% for width in logo_widths %}{{ section.settings.logo | image_url: width: width }} {{ width }}w,{% endfor %}"
+            src="{{ section.settings.logo | image_url: width: 160 }}"
+            sizes="(max-width: 768px) 80px, 120px"
+            alt="{{ section.settings.logo.alt | default: shop.name }}"
+            loading="eager"
+            class="h-10 w-auto"
+            width="120"
+            height="{{ 120 | divided_by: section.settings.logo.aspect_ratio | round }}"
+          >
+        {% else %}
+          <span class="text-lg sm:text-xl lg:text-2xl font-light text-white tracking-tight" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+            {{ shop.name | downcase }}
+          </span>
+        {% endif %}
       </a>
 
-      <div class="hidden md:flex space-x-4">
+      <!-- Mobile/Tablet: Burger Menu for Products -->
+      <button 
+        class="lg:hidden p-2 -ml-2 mr-4" 
+        @click="$store.dispatch('mobile-menu/show')"
+        aria-label="Open menu"
+      >
+        {% render 'icon-menu', class: 'w-5 h-5 text-white' %}
+      </button>
+
+      <!-- Desktop Navigation (center-left) -->
+      <div class="hidden lg:flex space-x-8 xl:space-x-10 flex-1">
         {% if section.settings.show_killer65_link %}
           <a
             href="/products/killer65"
-            class="inline-block text-lg leading-tight border-b transition duration-150 {% if request.page_type == 'product' and product.handle == 'killer65' %}border-black{% else %}border-transparent hover:border-black{% endif %}"
-          >
-            Killer65
+            class="text-sm font-normal text-white hover:opacity-75 transition duration-200" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+            {{ 'killer65' | downcase }}
           </a>
         {% endif %}
         {% if section.settings.show_products_link %}
           <a
             href="/collections/all"
-            class="inline-block text-lg leading-tight border-b transition duration-150 {% if request.page_type == 'collection' %}border-black{% else %}border-transparent hover:border-black{% endif %}"
-          >
-            Products
+            class="text-sm font-normal text-white hover:opacity-75 transition duration-200" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+            {{ 'products' | downcase }}
           </a>
         {% endif %}
-        {% if section.settings.show_contact_link %}
+        {% if section.settings.show_support_link %}
           <a
-            href="/pages/contact"
-            class="inline-block text-lg leading-tight border-b transition duration-150 {% if request.page_type == 'page' and page.handle == 'contact' %}border-black{% else %}border-transparent hover:border-black{% endif %}"
-          >
-            Contact
+            href="/pages/support"
+            class="text-sm font-normal text-white hover:opacity-75 transition duration-200" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+            {{ 'support' | downcase }}
           </a>
         {% endif %}
       </div>
 
-      {% assign link_class = 'flex flex-col justify-center items-center text-sm text-gray-600 hover:text-black font-medium transition duration-150 p-2' %}
-      {% assign icon_class = 'w-auto h-7 text-black mb-2' %}
-
-      <div class="hidden md:flex space-x-2 lg:space-x-6">
+      <!-- Icons (always on right) -->
+      <div class="flex space-x-2 sm:space-x-3 lg:space-x-4 ml-auto">
         <a
           href="{{ routes.search_url }}"
-          class="{{ link_class }}"
+          class="p-2 hover:bg-white/10 rounded-full transition duration-200"
+          aria-label="Search"
         >
-          {% render 'icon-search', class: icon_class %}
-          {{ 'action.search' | t }}
+          {% render 'icon-search', class: 'w-5 h-5 text-white' %}
         </a>
-
-
 
         <a
           href="{{ routes.cart_url }}"
-          class="{{ link_class }} relative"
+          class="p-2 hover:bg-white/10 rounded-full transition duration-200 relative"
+          aria-label="Cart"
         >
-          {% render 'icon-cart', class: icon_class %}
-          {{ 'action.cart' | t }}
+          {% render 'icon-cart', class: 'w-5 h-5 text-white' %}
 
           {% if cart.item_count > 0 %}
-            <div class="w-5 h-5 flex justify-center items-center bg-black text-white text-xs border border-white rounded-full absolute top-0 right-0">
+            <div class="w-4 h-4 flex justify-center items-center bg-blue-600 text-white text-xs rounded-full absolute -top-1 -right-1">
               {{ cart.item_count }}
             </div>
           {% endif %}
@@ -71,6 +89,11 @@
 {
   "name": "t:sections.header.name",
   "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
     {
       "type": "header",
       "content": "Navigation Links"
@@ -89,8 +112,8 @@
     },
     {
       "type": "checkbox",
-      "id": "show_contact_link",
-      "label": "Show Contact link",
+      "id": "show_support_link",
+      "label": "Show Support link",
       "default": true
     },
     {

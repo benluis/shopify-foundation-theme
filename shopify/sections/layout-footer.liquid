@@ -1,16 +1,16 @@
-<div class="border-t border-gray-200 pt-12 pb-24">
+<div class="custom-footer border-t border-gray-200/20 pt-12 pb-24">
   <div class="container grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-8">
     <!-- Company Info -->
     <div>
-      <div class="text-lg font-bold mb-3">
-        Aeris Studio
+      <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+        {{ 'Aeris Studio' | downcase }}
       </div>
-      <div class="space-y-2 text-sm text-gray-600">
-        <p>Premium mechanical keyboards designed for enthusiasts.</p>
+      <div class="space-y-2 text-sm text-white" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+        <p>{{ 'Premium mechanical keyboards designed for enthusiasts.' | downcase }}</p>
         {% if section.settings.show_email %}
           <p>
-            <a href="mailto:{{ section.settings.email }}" class="hover:text-black transition duration-150">
-              {{ section.settings.email }}
+            <a href="mailto:{{ section.settings.email }}" class="hover:opacity-75 transition duration-150">
+              {{ section.settings.email | downcase }}
             </a>
           </p>
         {% endif %}
@@ -19,24 +19,24 @@
 
     <!-- Products -->
     <div>
-      <div class="text-lg font-bold mb-3">
-        Products
+      <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+        {{ 'Products' | downcase }}
       </div>
       <div class="space-y-2 text-sm">
         <div>
-          <a href="/products/killer65" class="text-gray-600 hover:text-black transition duration-150">
-            Killer65
+          <a href="/products/killer65" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+            {{ 'Killer65' | downcase }}
           </a>
         </div>
         <div>
-          <a href="/collections/all" class="text-gray-600 hover:text-black transition duration-150">
-            All Products
+          <a href="/collections/all" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+            {{ 'All Products' | downcase }}
           </a>
         </div>
         {% if section.settings.show_customization_link %}
           <div>
-            <a href="/pages/customization" class="text-gray-600 hover:text-black transition duration-150">
-              Customization
+            <a href="/pages/customization" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+              {{ 'Customization' | downcase }}
             </a>
           </div>
         {% endif %}
@@ -45,33 +45,33 @@
 
     <!-- Support -->
     <div>
-      <div class="text-lg font-bold mb-3">
-        Support
+      <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+        {{ 'Support' | downcase }}
       </div>
       <div class="space-y-2 text-sm">
         <div>
-          <a href="/pages/contact" class="text-gray-600 hover:text-black transition duration-150">
-            Contact Us
+          <a href="/pages/support" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+            {{ 'Support' | downcase }}
           </a>
         </div>
         {% if section.settings.show_about_link %}
           <div>
-            <a href="/pages/about" class="text-gray-600 hover:text-black transition duration-150">
-              About Us
+            <a href="/pages/about" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+              {{ 'About Us' | downcase }}
             </a>
           </div>
         {% endif %}
         {% if section.settings.discord_link %}
           <div>
-            <a href="{{ section.settings.discord_link }}" target="_blank" class="text-gray-600 hover:text-black transition duration-150">
-              Discord Community
+            <a href="{{ section.settings.discord_link }}" target="_blank" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+              {{ 'Discord Community' | downcase }}
             </a>
           </div>
         {% endif %}
         {% if section.settings.blog_link %}
           <div>
-            <a href="{{ section.settings.blog_link }}" class="text-gray-600 hover:text-black transition duration-150">
-              Blog & Updates
+            <a href="{{ section.settings.blog_link }}" class="text-white hover:opacity-75 transition duration-150" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+              {{ 'Blog & Updates' | downcase }}
             </a>
           </div>
         {% endif %}
@@ -85,8 +85,8 @@
       section.settings.social_youtube_visible
     %}
       <div>
-        <div class="text-lg font-bold mb-3">
-          {{ 'footer.social' | t }}
+        <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+          {{ 'footer.social' | t | downcase }}
         </div>
 
         {% render 'layout-social',
@@ -107,8 +107,8 @@
 
     {% if enabled_locales > 1 or enabled_currencies > 1 %}
       <div>
-        <div class="text-lg font-bold mb-3">
-          {{ 'footer.settings' | t }}
+        <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+          {{ 'footer.settings' | t | downcase }}
         </div>
 
         <div class="flex space-x-2">
@@ -125,8 +125,8 @@
 
     {% if shop.enabled_payment_types != blank %}
       <div class="col-span-2">
-        <div class="text-lg font-bold mb-3">
-          {{ 'footer.payment_methods' | t }}
+        <div class="text-lg font-bold mb-3 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+          {{ 'footer.payment_methods' | t | downcase }}
         </div>
 
         <div class="flex flex-wrap space-x-2">
@@ -139,9 +139,9 @@
   </div>
 </div>
 
-<div class="border-t border-gray-200 py-8">
-  <div class="container text-sm text-gray-600 font-medium text-center">
-    &copy; {{ 'now' | date: "%Y" }} {{ shop.name }}
+<div class="border-t border-gray-200/20 py-8">
+  <div class="container text-sm text-white font-medium text-center" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+    &copy; {{ 'now' | date: "%Y" }} {{ shop.name | downcase }}
   </div>
 </div>
 

@@ -1,0 +1,264 @@
+<!-- Apple-style Moving Reviews Carousel -->
+<section class="py-16 sm:py-24 lg:py-32 bg-gray-50 overflow-hidden">
+  <div class="container mb-8 sm:mb-12">
+    {% if section.settings.headline %}
+      <div class="text-center mb-8 sm:mb-12">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-thin text-gray-900 mb-4 tracking-tight">
+          {{ section.settings.headline | downcase }}
+        </h2>
+        {% if section.settings.description %}
+          <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+            {{ section.settings.description | downcase }}
+          </p>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Moving Reviews Container -->
+  <div class="relative h-[400px] sm:h-[300px] overflow-hidden">
+    <div class="absolute inset-0 flex animate-scroll-reviews">
+      <!-- First set of reviews -->
+      <div class="flex flex-nowrap min-w-full items-center">
+        {% for block in section.blocks %}
+          <div class="flex-shrink-0 w-[320px] sm:w-[400px] lg:w-[450px] mx-4 sm:mx-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow duration-300 h-full">
+              <!-- Review Content -->
+              <div class="mb-6">
+                {% if block.settings.rating %}
+                  <div class="flex mb-4">
+                    {% for i in (1..5) %}
+                      {% if i <= block.settings.rating %}
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                      {% else %}
+                        <svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+                
+                <blockquote class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">
+                  "{{ block.settings.review_text | downcase }}"
+                </blockquote>
+              </div>
+
+              <!-- Reviewer Info -->
+              <div class="flex items-center">
+                {% if block.settings.reviewer_image %}
+                  <img 
+                    src="{{ block.settings.reviewer_image | img_url: '80x' }}" 
+                    alt="{{ block.settings.reviewer_name }}"
+                    class="w-12 h-12 rounded-full object-cover mr-4"
+                  >
+                {% else %}
+                  <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center mr-4">
+                    <span class="text-blue-600 font-semibold text-lg">
+                      {{ block.settings.reviewer_name | slice: 0 }}
+                    </span>
+                  </div>
+                {% endif %}
+                
+                <div>
+                  <div class="font-semibold text-gray-900">
+                    {{ block.settings.reviewer_name | downcase }}
+                  </div>
+                  {% if block.settings.reviewer_title %}
+                    <div class="text-sm text-gray-600">
+                      {{ block.settings.reviewer_title | downcase }}
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      
+      <!-- Duplicate set for seamless loop -->
+      <div class="flex flex-nowrap min-w-full items-center">
+        {% for block in section.blocks %}
+          <div class="flex-shrink-0 w-[320px] sm:w-[400px] lg:w-[450px] mx-4 sm:mx-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow duration-300 h-full">
+              <!-- Review Content -->
+              <div class="mb-6">
+                {% if block.settings.rating %}
+                  <div class="flex mb-4">
+                    {% for i in (1..5) %}
+                      {% if i <= block.settings.rating %}
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                      {% else %}
+                        <svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+                
+                <blockquote class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">
+                  "{{ block.settings.review_text | downcase }}"
+                </blockquote>
+              </div>
+
+              <!-- Reviewer Info -->
+              <div class="flex items-center">
+                {% if block.settings.reviewer_image %}
+                  <img 
+                    src="{{ block.settings.reviewer_image | img_url: '80x' }}" 
+                    alt="{{ block.settings.reviewer_name }}"
+                    class="w-12 h-12 rounded-full object-cover mr-4"
+                  >
+                {% else %}
+                  <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center mr-4">
+                    <span class="text-blue-600 font-semibold text-lg">
+                      {{ block.settings.reviewer_name | slice: 0 }}
+                    </span>
+                  </div>
+                {% endif %}
+                
+                <div>
+                  <div class="font-semibold text-gray-900">
+                    {{ block.settings.reviewer_name | downcase }}
+                  </div>
+                  {% if block.settings.reviewer_title %}
+                    <div class="text-sm text-gray-600">
+                      {{ block.settings.reviewer_title | downcase }}
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes scroll-reviews {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .animate-scroll-reviews {
+    animation: scroll-reviews 60s linear infinite;
+  }
+
+  .animate-scroll-reviews:hover {
+    animation-play-state: paused;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Reviews Carousel (Moving)",
+  "class": "shopify-section-vue",
+  "settings": [
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "What People Say"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "This keyboard changed my typing experience completely. The build quality is exceptional."
+        },
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer Name",
+          "default": "Alex Chen"
+        },
+        {
+          "type": "text",
+          "id": "reviewer_title",
+          "label": "Reviewer Title",
+          "default": "Software Developer"
+        },
+        {
+          "type": "image_picker",
+          "id": "reviewer_image",
+          "label": "Reviewer Photo"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews Carousel (Moving)",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "The Killer65 exceeded all my expectations. The typing feel is incredible and the build quality is top-notch.",
+            "reviewer_name": "Alex Chen",
+            "reviewer_title": "Software Developer",
+            "rating": 5
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "Finally found my endgame keyboard. The gasket mount makes every keystroke feel amazing.",
+            "reviewer_name": "Sarah Kim",
+            "reviewer_title": "Designer",
+            "rating": 5
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "Premium materials, excellent craftsmanship. Worth every penny for the typing experience.",
+            "reviewer_name": "Marcus Johnson",
+            "reviewer_title": "Writer",
+            "rating": 5
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "The customization options are endless. Love being able to match my keycap sets perfectly.",
+            "reviewer_name": "Emily Rodriguez",
+            "reviewer_title": "Product Manager",
+            "rating": 5
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

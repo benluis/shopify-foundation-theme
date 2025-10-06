@@ -1,7 +1,7 @@
 <div class="container mb-12 md:mb-24">
   {% if section.settings.headline %}
     <div class="text-2xl lg:text-3xl font-bold text-center mb-6 md:mb-12">
-      {{ section.settings.headline }}
+      {{ section.settings.headline | downcase }}
     </div>
   {% endif %}
 
@@ -30,8 +30,7 @@
   "blocks": [
     {
       "type": "image",
-      "name": "t:common.image",
-      "limit": 3,
+      "name": "t:sections.image-row.blocks.image.name",
       "settings": [
         {
           "type": "image_picker",
@@ -44,7 +43,6 @@
   "presets": [
     {
       "name": "t:sections.image-row.name",
-      "category": "Images",
       "blocks": [
         {
           "type": "image"

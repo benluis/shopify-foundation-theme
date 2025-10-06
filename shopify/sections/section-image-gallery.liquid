@@ -1,0 +1,182 @@
+<!-- Apple-style Moving Image Gallery -->
+<section class="py-16 sm:py-24 lg:py-32 bg-white overflow-hidden">
+  <div class="container mb-8 sm:mb-12">
+    {% if section.settings.headline %}
+      <div class="text-center mb-8 sm:mb-12">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-thin text-gray-900 mb-4 tracking-tight">
+          {{ section.settings.headline | downcase }}
+        </h2>
+        {% if section.settings.description %}
+          <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+            {{ section.settings.description | downcase }}
+          </p>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Moving Image Container -->
+  <div class="relative h-[60vh] sm:h-[70vh] overflow-hidden rounded-none sm:rounded-3xl mx-4 sm:mx-8">
+    <div class="absolute inset-0 flex animate-scroll">
+      <!-- First set of images -->
+      <div class="flex flex-nowrap min-w-full">
+        {% for block in section.blocks %}
+          <div class="flex-shrink-0 w-[300px] sm:w-[400px] lg:w-[500px] h-full mx-2 sm:mx-4">
+            {% if block.settings.image %}
+              <div class="w-full h-full rounded-2xl overflow-hidden bg-gray-100 group">
+                <img
+                  src="{{ block.settings.image | img_url: '800x' }}"
+                  alt="{{ block.settings.image.alt | default: block.settings.title }}"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  loading="lazy"
+                >
+              </div>
+            {% else %}
+              <div class="w-full h-full rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                <div class="text-gray-400 text-center">
+                  <div class="w-16 h-16 mx-auto mb-4 bg-gray-300 rounded-2xl"></div>
+                  <p class="text-sm">{{ block.settings.title | default: 'Gallery Image' | downcase }}</p>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+      
+      <!-- Duplicate set for seamless loop -->
+      <div class="flex flex-nowrap min-w-full">
+        {% for block in section.blocks %}
+          <div class="flex-shrink-0 w-[300px] sm:w-[400px] lg:w-[500px] h-full mx-2 sm:mx-4">
+            {% if block.settings.image %}
+              <div class="w-full h-full rounded-2xl overflow-hidden bg-gray-100 group">
+                <img
+                  src="{{ block.settings.image | img_url: '800x' }}"
+                  alt="{{ block.settings.image.alt | default: block.settings.title }}"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  loading="lazy"
+                >
+              </div>
+            {% else %}
+              <div class="w-full h-full rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                <div class="text-gray-400 text-center">
+                  <div class="w-16 h-16 mx-auto mb-4 bg-gray-300 rounded-2xl"></div>
+                  <p class="text-sm">{{ block.settings.title | default: 'Gallery Image' | downcase }}</p>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Optional overlay content -->
+    {% if section.settings.overlay_text %}
+      <div class="absolute inset-0 flex items-center justify-center bg-black/20 rounded-none sm:rounded-3xl">
+        <div class="text-center text-white p-6">
+          <h3 class="text-2xl sm:text-3xl lg:text-4xl font-light mb-4">
+            {{ section.settings.overlay_text | downcase }}
+          </h3>
+          {% if section.settings.overlay_button_text and section.settings.overlay_button_url %}
+            <a 
+              href="{{ section.settings.overlay_button_url }}" 
+              class="inline-flex items-center justify-center px-8 py-3 bg-white text-gray-900 text-base font-medium rounded-full hover:bg-gray-100 transition-colors duration-200"
+            >
+              {{ section.settings.overlay_button_text | downcase }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .animate-scroll {
+    animation: scroll 40s linear infinite;
+  }
+
+  .animate-scroll:hover {
+    animation-play-state: paused;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Image Gallery (Moving)",
+  "class": "shopify-section-vue",
+  "settings": [
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Gallery"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "overlay_text",
+      "label": "Overlay Text"
+    },
+    {
+      "type": "text",
+      "id": "overlay_button_text",
+      "label": "Overlay Button Text"
+    },
+    {
+      "type": "url",
+      "id": "overlay_button_url",
+      "label": "Overlay Button URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Gallery Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Image Title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Gallery (Moving)",
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

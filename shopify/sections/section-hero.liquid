@@ -1,45 +1,59 @@
 {% assign image = section.settings.image %}
+{% assign video_url = section.settings.video_url %}
+{% assign video_poster = section.settings.video_poster %}
 
-<div class="container mb-12 md:mb-24">
-  <div class="w-full md:h-[500px] relative overflow-hidden">
-    {% if image %}
-      <img
-        sizes="
-          (min-width: 1280px) 1500px,
-          (min-width: 1024px) 1250px,
-          (min-width: 768px) 1000px,
-          (min-width: 640px) 720px,
-          600px
-        "
-        srcset="
-          {{ image | img_url: '600x' }} 600w,
-          {{ image | img_url: '720x' }} 720w,
-          {{ image | img_url: '1000x' }} 1000w,
-          {{ image | img_url: '1250x' }} 1250w,
-          {{ image | img_url: '1500x' }} 1500w
-        "
-        src="{{ image | img_url: '1500x' }}"
-        alt="{{ image.alt }}"
-        loading="lazy"
-        class="w-full h-full object-cover object-center"
-      >
-    {% else %}
-      {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-full' }}
-    {% endif %}
+<!-- Apple-style hero section -->
+<div class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0 z-0">
+    <video
+      class="w-full h-full object-cover object-center"
+      autoplay
+      muted
+      loop
+      playsinline
+    >
+      <source src="https://cdn.shopify.com/videos/c/o/v/c202619424b44a1b812c1a453eedd6a4.mp4" type="video/mp4">
+    </video>
+  </div>
 
-    <div class="w-full md:max-w-xl md:absolute bottom-0 right-0 bg-white pt-6 md:p-6 md:mb-8 md:mr-8">
-      <div class="text-2xl lg:text-3xl font-bold mb-2">
-        {{ section.settings.headline }}
+  <!-- Apple-style content overlay -->
+  <div class="container relative z-10 text-center px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-4xl sm:text-6xl lg:text-8xl font-thin text-gray-900 mb-4 sm:mb-6 lg:mb-8 tracking-tight">
+        {{ section.settings.headline | default: 'Killer65' | downcase }}
+      </h1>
+      
+      <p class="text-xl sm:text-2xl lg:text-3xl text-gray-600 mb-2 sm:mb-4 font-light">
+        {{ section.settings.text | default: 'A premium 65% mechanical keyboard' | downcase }}
+      </p>
+      
+      <p class="text-lg sm:text-xl text-gray-500 mb-8 sm:mb-12">
+        {{ 'Starting at $149' | downcase }}
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a 
+          href="{{ section.settings.button-url | default: '/products/killer65' }}" 
+          class="inline-flex items-center justify-center px-8 py-3 bg-blue-600 text-white text-base font-medium rounded-full hover:bg-blue-700 transition-colors duration-200 min-w-[200px]"
+        >
+          {{ section.settings.button-text | default: 'Buy Now' | downcase }}
+        </a>
+        
+        <a 
+          href="#features" 
+          class="inline-flex items-center justify-center px-8 py-3 border border-blue-600 text-blue-600 text-base font-medium rounded-full hover:bg-blue-50 transition-colors duration-200 min-w-[200px]"
+        >
+          {{ 'Learn More' | downcase }}
+        </a>
       </div>
-
-      <div class="mb-6">
-        {{ section.settings.text }}
-      </div>
-
-      <a href="{{ section.settings.button-url }}" class="button button-primary">
-        {{ section.settings.button-text }}
-      </a>
     </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce flex items-center justify-center">
+    <svg class="w-6 h-6 text-gray-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+    </svg>
   </div>
 </div>
 

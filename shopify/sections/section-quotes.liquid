@@ -29,20 +29,19 @@
   "blocks": [
     {
       "type": "quote",
-      "name": "t:sections.quotes.settings.quote",
-      "limit": 3,
+      "name": "t:sections.quotes.blocks.quote.name",
       "settings": [
         {
           "type": "textarea",
           "id": "quote-text",
-          "label": "t:common.text",
-          "default": "Add customer reviews and testimonials to showcase your store’s happy customers."
+          "label": "t:sections.quotes.blocks.quote.settings.quote-text.label",
+          "default": "Testimonial"
         },
         {
           "type": "text",
           "id": "quote-author",
-          "label": "t:common.author",
-          "default": "Author's name"
+          "label": "t:sections.quotes.blocks.quote.settings.quote-author.label",
+          "default": "Author"
         }
       ]
     }
@@ -50,7 +49,6 @@
   "presets": [
     {
       "name": "t:sections.quotes.name",
-      "category": "Text",
       "blocks": [
         {
           "type": "quote"

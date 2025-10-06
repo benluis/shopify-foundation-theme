@@ -1,0 +1,225 @@
+{%- liquid
+  assign link_classes = 'text-white hover:opacity-75 transition duration-150'
+  assign external_icon = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>'
+-%}
+
+<div class="custom-footer bg-[#1e2329] text-white pt-12 pb-8">
+  <div class="container">
+    <!-- Top Section -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8">
+      <!-- Main Heading -->
+      <div class="md:col-span-1">
+        <h2 class="text-xl font-semibold mb-4">{{ section.settings.main_heading }}</h2>
+        {% if section.settings.main_links != blank %}
+          <div class="space-y-2 text-sm">
+            {% for link in linklists[section.settings.main_links].links %}
+              <div>
+                <a href="{{ link.url }}" class="{{ link_classes }}">
+                  {{ link.title }}
+                  {% if link.url contains 'http' %}{{ external_icon }}{% endif %}
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Links Column 1 -->
+      <div class="md:col-span-1">
+        {% if section.settings.links_1 != blank %}
+          <div class="space-y-2 text-sm">
+            {% for link in linklists[section.settings.links_1].links %}
+              <div>
+                <a href="{{ link.url }}" class="{{ link_classes }}">
+                  {{ link.title }}
+                  {% if link.url contains 'http' %}{{ external_icon }}{% endif %}
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Links Column 2 -->
+      <div class="md:col-span-1">
+        {% if section.settings.links_2 != blank %}
+          <div class="space-y-2 text-sm">
+            {% for link in linklists[section.settings.links_2].links %}
+              <div>
+                <a href="{{ link.url }}" class="{{ link_classes }}">
+                  {{ link.title }}
+                  {% if link.url contains 'http' %}{{ external_icon }}{% endif %}
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Reach Us Column -->
+      <div class="md:col-span-1">
+        <h3 class="text-lg font-semibold mb-4">{{ section.settings.reach_us_heading }}</h3>
+        {% render 'layout-social',
+          social_facebook_visible: true,
+          social_facebook_link: section.settings.social_facebook_link,
+          social_linkedin_visible: true,
+          social_linkedin_link: section.settings.social_linkedin_link,
+          social_instagram_visible: true,
+          social_instagram_link: section.settings.social_instagram_link,
+          social_youtube_visible: true,
+          social_youtube_link: section.settings.social_youtube_link,
+          social_twitter_visible: true,
+          social_twitter_link: section.settings.social_twitter_link,
+          social_tiktok_visible: true,
+          social_tiktok_link: section.settings.social_tiktok_link
+        %}
+        {% if section.settings.links_3 != blank %}
+          <div class="mt-4 space-y-2 text-sm">
+            {% for link in linklists[section.settings.links_3].links %}
+              <div>
+                <a href="{{ link.url }}" class="{{ link_classes }}">
+                  {{ link.title }}
+                  {% if link.url contains 'http' %}{{ external_icon }}{% endif %}
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="border-t border-gray-200/20 pt-8 mt-8 flex flex-wrap justify-between items-center text-sm">
+      <div class="w-full md:w-auto mb-4 md:mb-0">
+        <p class="mb-2">{{ section.settings.copyright_text }}</p>
+        {% if section.settings.bottom_links != blank %}
+          <div class="flex space-x-4">
+            {% for link in linklists[section.settings.bottom_links].links %}
+              <a href="{{ link.url }}" class="{{ link_classes }}">
+                {{ link.title }}
+                {% if link.url contains 'http' %}{{ external_icon }}{% endif %}
+              </a>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      <div class="flex items-center space-x-8">
+        {% if section.settings.made_with_image != blank %}
+          <div class="text-center">
+            <p class="mb-2">{{ section.settings.made_with_text }}</p>
+            <a href="{{ section.settings.made_with_url }}" target="_blank">
+              <img src="{{ section.settings.made_with_image | image_url: width: 100 }}" alt="Made with logo" class="h-8 mx-auto">
+            </a>
+          </div>
+        {% endif %}
+        {% if section.settings.built_by_image != blank %}
+          <div class="text-center">
+            <p class="mb-2">{{ section.settings.built_by_text }}</p>
+            <a href="{{ section.settings.built_by_url }}" target="_blank">
+              <img src="{{ section.settings.built_by_image | image_url: width: 100 }}" alt="Built by logo" class="h-8 mx-auto">
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.footer.name",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Footer Content"
+    },
+    {
+      "type": "text",
+      "id": "main_heading",
+      "label": "Main Heading",
+      "default": "Aeris Studio"
+    },
+    {
+      "type": "link_list",
+      "id": "main_links",
+      "label": "Main Heading Links"
+    },
+    {
+      "type": "link_list",
+      "id": "links_1",
+      "label": "Link Column 1"
+    },
+    {
+      "type": "link_list",
+      "id": "links_2",
+      "label": "Link Column 2"
+    },
+    {
+      "type": "text",
+      "id": "reach_us_heading",
+      "label": "Reach Us Heading",
+      "default": "Reach us"
+    },
+    {
+      "type": "link_list",
+      "id": "links_3",
+      "label": "Reach Us Links (Contact/Feedback)"
+    },
+    {
+      "type": "header",
+      "content": "Social Media Links"
+    },
+    { "type": "url", "id": "social_discord_link", "label": "Discord URL" },
+    { "type": "url", "id": "social_instagram_link", "label": "Instagram URL" },
+    { "type": "url", "id": "social_youtube_link", "label": "YouTube URL" },
+    { "type": "url", "id": "social_tiktok_link", "label": "TikTok URL" },
+    {
+      "type": "header",
+      "content": "Bottom Row"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "© 2025 Aeris Studio LLP, last updated 10 October 2025"
+    },
+    {
+      "type": "link_list",
+      "id": "bottom_links",
+      "label": "Bottom Links (e.g., Privacy Policy)"
+    },
+    {
+      "type": "text",
+      "id": "made_with_text",
+      "label": "Made with Text",
+      "default": "Made with"
+    },
+    {
+      "type": "image_picker",
+      "id": "made_with_image",
+      "label": "Made with Image"
+    },
+    {
+      "type": "url",
+      "id": "made_with_url",
+      "label": "Made with URL"
+    },
+    {
+      "type": "text",
+      "id": "built_by_text",
+      "label": "Built by Text",
+      "default": "Built by"
+    },
+    {
+      "type": "image_picker",
+      "id": "built_by_image",
+      "label": "Built by Image"
+    },
+    {
+      "type": "url",
+      "id": "built_by_url",
+      "label": "Built by URL"
+    }
+  ]
+}
+{% endschema %}
